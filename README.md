@@ -17,7 +17,7 @@ Gradle
 ```
 dependencies {
     ...
-    compile 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
 ```
 
@@ -38,11 +38,50 @@ Limitations
 -----------
 * The ScaleType is always CENTER_CROP and you'll get an exception if you try to change it. This is (currently) by design as it's perfectly fine for profile images.
 * Enabling `adjustViewBounds` is not supported as this requires an unsupported ScaleType
-* If you use Picasso for fetching images, you need to set the `noFade()` option to avoid messed up images. If you want to keep the fadeIn animation, you have to fetch the image into a `Target` and apply a custom animation when setting it as source for the `CircleImageView` in `onBitmapLoaded()`.
+* If you use an image loading library like Picasso or Glide, you need to disable their fade animations to avoid messed up images. For Picasso use the `noFade()` option, for Glide use `dontAnimate()`. If you want to keep the fadeIn animation, you have to fetch the image into a `Target` and apply a custom animation yourself when receiving the `Bitmap`.
 * Using a `TransitionDrawable` with `CircleImageView` doesn't work properly and leads to messed up images.
+
+FAQ
+---
+**How can I use a `VectorDrawable` with `CircleImageView`?**
+
+Short answer: you shouldn't. Using a `VectorDrawable` with `CircleImageView` is very inefficient. You should modify your vectors to be in a circular shape and use them with a regular ImageView instead.
+
+**Why doesn't `CircleImageView` extend `AppCompatImageView`?**
+
+Extending `AppCompatImageView` would require adding a runtime dependency for the support library without any real benefit.
+
+**How can I add a selector (e.g. ripple effect) bound to a circle?**
+
+There's currently no direct support for a circle bound selector but you can follow [these steps](https://github.com/hdodenhof/CircleImageView/issues/153#issuecomment-249692049) to implement it yourself.
+
+**How can I add a gap between image and border?**
+
+Adding a gap is also not support directly but [there's a workaround](https://github.com/hdodenhof/CircleImageView/issues/133#issuecomment-225437930).
 
 Changelog
 ---------
+* **3.1.0**
+    * Align bitmap paint flags with BitmapDrawable (improves scaling)
+* **3.0.2**
+    * Fix NPE during initialization on API level <= 19
+    * Fix wrong outline being provided if circular transformation is disabled
+* **3.0.1**
+    * Fix touch event not fired if view is empty
+    * Fix touchable area limited to a circle even if transformation is disabled
+* **3.0.0**
+    * Limit touch event handling to circle area
+    * Migrate to AndroidX
+    * Remove deprecated properties and methods
+* **2.2.0**
+    * Add support for elevation
+    * Add circle background color attribute to replace fill color
+* **2.1.0**
+    * Add support for padding
+    * Add option to disable circular transformation
+    * Fix hairline gap being drawn between image and border under some conditions
+    * Fix NPE when using tint attribute (which is not supported)
+    * Deprecate fill color as it seems to cause quite some confusion
 * **2.0.0**
     * BREAKING: Custom xml attributes are now prefixed with "civ_"
     * Graceful handling of incompatible drawables
@@ -73,7 +112,7 @@ Changelog
 License
 -------
 
-    Copyright 2014 - 2015 Henning Dodenhof
+    Copyright 2014 - 2020 Henning Dodenhof
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
