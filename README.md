@@ -1,7 +1,7 @@
 CircleImageView
 ===============
 
-A fast circular ImageView perfect for profile images. This is based on [RoundedImageView from Vince Mi](https://github.com/vinc3m1/RoundedImageView) which itself is based on [techniques recommended by Romain Guy](http://www.curious-creature.org/2012/12/11/android-recipe-1-image-with-rounded-corners/).
+A fast circular ImageView perfect for profile images. This is based on [RoundedImageView from Vince Mi](https://github.com/vinc3m1/RoundedImageView) which itself is based on techniques recommended by [Romain Guy](https://twitter.com/romainguy).
 
 ![CircleImageView](https://raw.github.com/hdodenhof/CircleImageView/master/screenshot.png)
 
@@ -57,7 +57,7 @@ There's currently no direct support for a circle bound selector but you can foll
 
 **How can I add a gap between image and border?**
 
-Adding a gap is also not support directly but [there's a workaround](https://github.com/hdodenhof/CircleImageView/issues/133#issuecomment-225437930).
+Adding a gap is also not supported directly but [there's a workaround](https://github.com/hdodenhof/CircleImageView/issues/133#issuecomment-225437930).
 
 Changelog
 ---------
